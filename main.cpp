@@ -9,9 +9,9 @@
 /** Includes 
  */
 
-#include "mbed.h"
+
 #include "node_flow.h"
-#include <string>
+
 
 string device_id("MyFabulousDevice01");
 uint8_t sensor_id[]={30,10,15};
