@@ -9,81 +9,43 @@
 /** Includes 
  */
 
-Serial pc(PC_TXD, PC_RXD);
+#include "mbed.h"
+#include "node_flow.h"
+#include <string>
+
+string device_id("MyFabulousDevice01");
+uint8_t sensor_id[]={30,10,15};
+uint8_t device_type[]={20,10,5};
+uint16_t reading_time_m[]={60,120,120};
+uint16_t number_of_sensors=3;
 
 
-#include "board.h"
-
-// #include "Dummy_Sensor_1.h"
-// #include "Dummy_Sensor_2.h"
-
-NodeFlow mydevice;
-
-//uint8_t NumofSensors=2;
-uint8_t sensorId[]={D1,D2};
-
-uint8_t readingTime_m[]={5,3};
-
-
-//Dummy_Sensor_1 SensorId[0];
-
-int standby_time=0;
-
-//periodic or specific time of day for NB-IOT
-int sendTime_h=10;
+NodeFlow myapp(EEPROM_WC, I2C_SDA, I2C_SCL, I2C_FREQ);
+//HDC1080 hdc(I2C_SDA, I2C_SCL);
 
 int main()
 {
+    
+    /**Returns wakeup type WAKEUP_RESET, WAKEUP_PIN
+     * 
+     */
+    
+    int retc=myapp.start(device_id);
+    int next_time=10;
 
- pc.baud(9600);
- mydevice.start();
- /**Wakeup type
-  */
- WakeupType wakeup = mydevice.get_wakeup_type();
- //Initialisation/setup
- if (wakeup==WAKEUP_RESET) {
-       pc.printf("\r\nWAKEUP_RESET");
-      // mydevice.reset();
- /**After first wakeup from interrupt, sleep 5 mins without interrupt from pin
-  * 
-  */
-       mydevice.set_max_interrupt_sleep(5);
+    /**It will only add sensors if they are not already initialized
+     * 
+     */
+    myapp.add_sensors(sensor_id,device_type,reading_time_m,number_of_sensors);
 
-/** Register each sensor to the eeprom
- *  Each sensor has to register to the EEPROM before starting to report data  
- */
-       for (int i=0; i<sizeof(SensorId); i++ ) {
-       mydevice.registerSensor(sensorId[i],readingTime_h[i]);
-       }
-
-//Calculates & returns the next sensor reading time defined by the user 
-       mydevice.set_reading_time();
-/** Uncoment for NB-IOT      
-       mydevice.set_send_time(time);
-*/
-
-  }
- if (wakeup==WAKEUP_TIMER) {
-       
-       //if sensor/Check which sensor else just kick the wdg
-       mydevice.SensorsHandler();
-       printf("Sensor Reading time");
-
-       //NB 
+    next_time= myapp.set_reading_time(reading_time_m,number_of_sensors);
+    // if(isReadingTime(sensor1)){
 
 
-       //lora ModemSend
-       mydevice.ModemSend(int port,sizeof(payload),FLAG);
-       //User specific application
-       standby_time=mydevice.next_reading_time();       
-   }
- if (wakeup==WAKEUP_PIN) {
-       printf("Trigger");
-       //user specific application
-       standby_time=mydevice.next_reading_time();
-   }
- 
-  
-  mydevice.enter_standby(standby_time); 
+        
+    // }
+   // myapp.get_timestamp();
+
+    myapp.standby(next_time,true,true);
 }
 
