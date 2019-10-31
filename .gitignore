@@ -6,4 +6,4 @@ mbed-os
 BUILD
 
 node_flow
-mbed-semtech-lora-rf-drivers
+board_definitions
