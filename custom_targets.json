@@ -1,0 +1,103 @@
+{
+    "TP_WRIGHT_V1_0_0": {
+        "inherits": ["MTB_MURATA_ABZ"],
+        "overrides": {
+            "stdio_uart_tx": "PA_2_ALT0",
+            "stdio_uart_rx": "PA_3_ALT0"        
+        },
+        "macros_add": [
+            "BOARD=WRIGHT_V1_0_0",
+            "MAX_BUFFER_READING_TIMES=50",
+            "MAX_RETRY_CLOCK_SYNCH=3",
+            "STM32_UID=((uint32_t *)0x1FF80050)",
+            "_PERSISTENT_STORAGE_DRIVER=STM24256",
+            "_COMMS_NBIOT_DRIVER=SARAN2",
+            "_COMMS_LORA_DRIVER=NONE",
+            "TP_DONE=(PinName)0x01",
+            "TP_EEPROM_WC=(PinName)0x08",
+            "TP_I2C_SDA=(PinName)0x0A",
+            "TP_I2C_SCL=PA_(PinName)0x09",
+            "TP_I2C_FREQ=400000",
+            "TP_SPI_SCK=(PinName)0x05",
+            "TP_SPI_MISO=(PinName)0x06",
+            "TP_SPI_MOSI=(PinName)0x07",
+            "TP_PC_TXU=(PinName)0x02",
+            "TP_PC_RXU=(PinName)0x03",
+            "TP_PC_BAUD=115200",
+            "TP_NBIOT_TXU=(PinName)0x16",
+            "TP_NBIOT_RXU=(PinName)0x17",
+            "TP_NBIOT_BAUD=57600",
+            "TP_NBIOT_CTS=(PinName)0x14",
+            "TP_NBIOT_RST=(PinName)0x0B",
+            "TP_NBIOT_VINT=(PinName)0x15",
+            "TP_NBIOT_GPIO=(PinName)0x0C"
+        ]
+    },
+    "TP_EARHART_V1_0_0": {
+        "inherits": ["MTB_MURATA_ABZ"],
+        "macros_add": [
+            "BOARD=EARHART_V1_0_0",
+            "MAX_BUFFER_READING_TIMES=50",
+            "MAX_RETRY_CLOCK_SYNCH=3",
+            "STM32_UID=((uint32_t *)0x1FF80050)",
+            "_PERSISTENT_STORAGE_DRIVER=STM24256",
+            "_COMMS_NBIOT_DRIVER=NONE",
+            "_COMMS_LORA_DRIVER=SX1276",
+            "TP_DONE=(PinName)0x05",
+            "TP_EEPROM_WC=(PinName)0x12",
+            "TP_VDD_TCXO=(PinName)0x0C",
+            "TP_I2C_SDA=(PinName)0x19",
+            "TP_I2C_SCL=(PinName)0x18",
+            "TP_I2C_FREQ=400000",
+            "TP_SPI_NSS=(PinName)0x1C",
+            "TP_SPI_SK=(PinName)0x1D",
+            "TP_SPI_MISO=(PinName)0x1E",
+            "TP_SPI_MOSI=(PinName)0x1F",
+            "TP_PC_TXU=(PinName)0x09",
+            "TP_PC_RXU=(PinName)0x0A",
+            "TP_PC_BAUD=115200",
+            "TP_LORA_SPI_NSS=(PinName)0x0F",
+            "TP_LORA_SPI_SCK=(PinName)0x13",
+            "TP_LORA_SPI_MISO=(PinName)0x06",
+            "TP_LORA_SPI_MOSI=(PinName)0x07",
+            "TP_LORA_RESET=(PinName)0x20"
+        ]
+    },
+    
+
+    "TP_DEV_BOARD_V1_1_0": {
+        "inherits": ["NUCLEO_L073RZ"],
+        "macros_add": [
+            
+            "BOARD=DEVELOPMENT_BOARD_V1_1_0",
+            "MAX_BUFFER_READING_TIMES=50",
+            "MAX_RETRY_CLOCK_SYNCH=3",
+            "STM32_UID=((uint32_t *)0x1FF80050)",
+            "_PERSISTENT_STORAGE_DRIVER=STM24256",
+            "_COMMS_NBIOT_DRIVER=SARAN2",
+            "_COMMS_LORA_DRIVER=SX1276",
+            "TP_DONE=(PinName)0x0A",
+            "TP_EEPROM_WC=(PinName)0x22",
+            "TP_I2C_SDA=(PinName)0x19",
+            "TP_I2C_SCL=(PinName)0x18",
+            "TP_I2C_FREQ=400000",
+            "TP_LORA_SPI_NSS=(PinName)0x1D",
+            "TP_LORA_SPI_SCK=(PinName)0x05",
+            "TP_LORA_SPI_MISO=(PinName)0x06",
+            "TP_LORA_SPI_MOSI=(PinName)0x07",
+            "TP_PC_TXU=(PinName)0x2A",
+            "TP_PC_RXU=(PinName)0x2B",
+            "TP_PC_BAUD=115200",
+            "TP_NBIOT_TXU=(PinName)0x02",
+            "TP_NBIOT_RXU=(PinName)0x03",
+            "TP_NBIOT_BAUD=57600",
+            "TP_NBIOT_CTS=(PinName)0x0B",
+            "TP_NBIOT_RST=(PinName)0x12",
+            "TP_NBIOT_VINT=(PinName)0x11",
+            "TP_NBIOT_GPIO=(PinName)0x1C"
+        ]
+    }
+}
+
+
+

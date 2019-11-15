@@ -6,4 +6,5 @@ mbed-os
 BUILD
 
 node_flow
-board_definitions
+ti_hdc1080_driver
+ti_OPT3001_driver
