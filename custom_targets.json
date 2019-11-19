@@ -16,7 +16,7 @@
             "TP_DONE=(PinName)0x01",
             "TP_EEPROM_WC=(PinName)0x08",
             "TP_I2C_SDA=(PinName)0x0A",
-            "TP_I2C_SCL=PA_(PinName)0x09",
+            "TP_I2C_SCL=(PinName)0x09",
             "TP_I2C_FREQ=400000",
             "TP_SPI_SCK=(PinName)0x05",
             "TP_SPI_MISO=(PinName)0x06",
