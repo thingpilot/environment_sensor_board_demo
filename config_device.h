@@ -8,20 +8,24 @@
 /** Define to prevent recursive inclusion
  */
 #pragma once
-#include <mbed.h>
-
+#include "mbed.h"
 
 /**CLOCK SYNCH SPECIFICS */
-#define CLOCK_SYNCH true
-#define CLOCK_SYNCH_TIME 0 //0-86400 time in seconds 
+#define CLOCK_SYNCH false
+#define CLOCK_SYNCH_TIME 120 //0-86400 time in seconds 
 
-#define INTERRUPT_DELAY 5
+#define INTERRUPT_DELAY 21
 
 /**SCHEDULER SPECIFICS */
 #define SCHEDULER true
-#define SCHEDULER_SIZE  11
 extern float scheduler[];
-extern uint16_t periodic[];
+#define SCHEDULER_SIZE 6
+
+/**-NBIOT ONLY- SEND SCHEDULER */
+#define MAX_BUFFER_SENDING_TIMES 10
+#define SEND_SCHEDULER true
+extern float nbiot_send_scheduler[];
+#define SEND_SCHEDULER_SIZE 3
 
 
 

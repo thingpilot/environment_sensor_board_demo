@@ -30,12 +30,13 @@
 #include"HDC1080.h"
 #include"OPT3001.h"
 //value from 0-65535  (45 days approx.) it will be awake every 2 hours to kick the watchdog, and once a day to sync the RTC
-uint16_t periodic[4]={360,500,120,120}; 
+//float scheduler[4]={20,500,120,120}; 
 
 // /**Reading specific times of the day.
 //  * Values from 0-23.59 where 0 value is exact midnight. Format HH.MM
 //  */ 
-float scheduler[11]={11.47,11.48,11.49,11.50,11.52,12.18,12.20,13.22,13.25,13.27,13.3}; 
+float scheduler[6]={0.10,16.15,16.20,15.10,15.20,0.03};
+float nbiot_send_scheduler[3]={14.55,15.05,15.15};
 
 MyApp myapp;
 HDC1080 hdc(I2C_SDA, I2C_SCL);
@@ -44,13 +45,11 @@ Serial a(TP_PC_TXU,TP_PC_RXU);
 
 int main()
 { 
-    
     myapp.start();
     // myapp.set_reading_time(scheduler,size(scheduler));
     // myapp.add_sensors(sensor_id,reading_time_s,size(sensor_id));
     // next_time=myapp.set_scheduler(scheduler,size(scheduler));
-    // myapp.standby(120,true,true);
-    
+    // myapp.standby(120,true,true);  
 }
 
 /**Handling Periodic && Scheduled for all sensors */
@@ -70,17 +69,20 @@ uint8_t* MyApp::HandlePeriodic(uint16_t &length){
     payload[4]=lux_lx>>16 & 0xFF; // three byte number
     payload[5]=lux_lx>>8 & 0xFF;
     payload[6]=lux_lx & 0xFF;  
-    payload[7]=lux_lx>>16 & 0xFF; // three byte number
-    payload[8]=lux_lx>>8 & 0xFF;
+    int i=increment(0);
+    payload[7]=i & 0xFF; // three byte number
+    payload[8]=lux_lx & 0xFF;
     
     length=size(payload);
     return payload;  
 
 }
 
+
+
 int MyApp::setup(){
 
-set_time(1574163918);
+//set_time(1574163918);
 return 0;
 }
 int MyApp::HandleInterrupt(){
