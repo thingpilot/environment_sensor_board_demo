@@ -29,9 +29,9 @@
 //float scheduler[4]={60,20,20,20};
 
 float nbiot_send_scheduler[2]={11,22};
-float schedulerA[10]={17.38,17.40,17.15,17.20,18,19,1,5,11,13};
-float schedulerB[4]={19,1,7,22};
-float schedulerC[4]={12,1,6,20};
+float schedulerA[10]={17.37,17.40,18,20,21,3,1,5,9,8};
+float schedulerB[4]={18,21,7,22};
+float schedulerC[4]={8,21,6,20};
 
 MyApp myapp;
 HDC1080 hdc(I2C_SDA, I2C_SCL);
@@ -50,14 +50,8 @@ int main(){
 void MyApp::HandleInterrupt(){
 
     int increment_value;
-    if(increment(1)==0){
-        read_increment(&increment_value);
-        a.printf("Incremented to   : %d\r\n", increment_value);
-    }    
-    else{
-        a.printf("Error reading the increment\r\n");
-    }
-    
+    read_increment(&increment_value);
+    a.printf("Incremented to   : %d\r\n", increment_value);
 }
 
 /**Default metric group for handling either scheduled times(SCHEDULED TRUE in the config_device.h) 
@@ -65,78 +59,46 @@ void MyApp::HandleInterrupt(){
   * To use the other metric groups the user has to define SCHEDULED FALSE && the SIZE
   * 
   */
-uint8_t* MyApp::MetricGroupA(uint16_t &length){   
+void MyApp::MetricGroupA(){   
     a.printf("Welcome to MetricGroupA\r\n");
 
-    int temp_C =100*hdc.ReadTemperature();
+    int temp_C =100*hdc.ReadTemperature(); 
     uint8_t hmdt_P=hdc.ReadHumidity();
     uint32_t lux_lx =100*opt.Readlight();
     int increment_value;
     read_increment(&increment_value);
 
-    add_record<uint16_t>(temp_C);
-    add_record<uint8_t>(hmdt_P);
-    add_record<uint16_t>(30);
-    add_record<uint32_t>(lux_lx);
-    add_record<uint8_t>(increment_value);
-
-
-    static uint8_t payload[9];
-    payload[0]=0;
-    payload[1]=temp_C>>8 & 0xFF; // two byte number
-    payload[2]=temp_C& 0xFF;
-    payload[3]=hmdt_P& 0xFF;     //One byte num
-    payload[4]=lux_lx>>16 & 0xFF; // three byte number
-    payload[5]=lux_lx>>8 & 0xFF;
-    payload[6]=lux_lx & 0xFF;
-    payload[7]=increment_value & 0xFF;  //one byte
-    payload[8]=increment_value & 0xFF;
-
-    
     a.printf("Temperature:      : %d\r\n", temp_C);
     a.printf("ReadHumidity      : %d\r\n", hmdt_P);
     a.printf("Light             : %d\r\n", lux_lx);
     a.printf("Incremented to    : %d\r\n", increment_value);
 
-    length=size(payload);
+    //it's 8 bytes but the first byte it will send will be the groups flag
+    add_record<int16_t>(temp_C); 
+    add_record<uint8_t>(hmdt_P);   
+    add_record<uint32_t>(lux_lx);
+    add_record<uint8_t>(increment_value);
 
-    return payload;
 }
 
-
-
-uint8_t* MyApp::MetricGroupB(uint16_t &length){
+void MyApp::MetricGroupB(){
      a.printf("Welcome to MetricGroupB\r\n");
-     static uint8_t payload[2];
-
-     payload[0]=10& 0xFF;
-     payload[1]=20& 0xFF;
-     length=size(payload);
-   
-     return payload;
+     uint8_t randomB=10;
+     a.printf("Random value:      : %d\r\n",randomB);
+     add_record<uint8_t>(randomB); 
+     
 }
 
-uint8_t* MyApp::MetricGroupC(uint16_t &length){
+void MyApp::MetricGroupC(){
     a.printf("Welcome to MetricGroupC\r\n");
-    static uint8_t payload[3];
-    payload[0]=0;
-    payload[1]=0;
-    payload[2]=0;
-    length=size(payload);
+    uint8_t randomC=20;
+    a.printf("Random value:      : %d\r\n",randomC );
+    add_record<uint8_t>(randomC); 
    
-    return payload;  
 }
-uint8_t* MyApp::MetricGroupD(uint16_t &length){
+void MyApp::MetricGroupD(){
     a.printf("Welcome to MetricGroupD\r\n");
 
-    static uint8_t payload[4];
-    payload[0]=0;
-    payload[1]=0;
-    payload[2]=0;
-    payload[3]=0;
-    length=size(payload);
-     
-    return payload;
 }
 
 
