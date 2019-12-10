@@ -12,15 +12,15 @@
 
 
 /**CLOCK SYNC/HEART BEAT*/
-#define CLOCK_SYNCH true
+#define CLOCK_SYNCH false
 
 /**SCHEDULER SPECIFICS - FALSE==INTERVAL, TRUE==SCHEDULED TIMES*/
 #define SCHEDULER true
 
 /**NBIOT ONLY- SEND SCHEDULER */
-#define SEND_SCHEDULER true
+#define SEND_SCHEDULER false
 
-#define INTERRUPT_DELAY 20
+#define INTERRUPT_DELAY 60
 #define MAX_SEND_RETRIES 3
 #define MAX_OVERWRITE_RETRIES 3
 
@@ -49,11 +49,11 @@
 #endif
 
 
-#if(SEND_SCHEDULER)
+//#if(SEND_SCHEDULER)
     #define MAX_BUFFER_SENDING_TIMES 10
     #define SEND_SCHEDULER_SIZE 2
     extern float nbiot_send_scheduler[];
-#endif
+//#endif
 
 //#if (CLOCK_SYNCH)
     #define CLOCK_SYNCH_TIME 86400 //0-86400 time in seconds 
