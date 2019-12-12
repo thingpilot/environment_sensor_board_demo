@@ -26,12 +26,13 @@
                 B)Interval.
  * A) Values from 0-23.59 where 0 value is exact midnight. Format HH.MM
  */ 
-//float scheduler[4]={60,20,20,20};
+//float scheduler[4]={20,600,300,1800};
 
 float nbiot_send_scheduler[2]={11,22};
-float schedulerA[10]={17.37,17.40,18,20,21,3,1,5,9,8};
-float schedulerB[4]={18,21,7,22};
-float schedulerC[4]={8,21,6,20};
+float schedulerA[10]={10.33,19,22,1,5,7,9,10,11,12};
+float schedulerB[4]={18,22.30,7.30,9};
+float schedulerC[4]={19,5,3.30,20};
+
 
 MyApp myapp;
 HDC1080 hdc(I2C_SDA, I2C_SCL);
@@ -48,8 +49,8 @@ int main(){
 }
 
 void MyApp::HandleInterrupt(){
-
     int increment_value;
+    increment(1);
     read_increment(&increment_value);
     a.printf("Incremented to   : %d\r\n", increment_value);
 }

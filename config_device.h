@@ -10,7 +10,6 @@
 #pragma once
 #include "mbed.h"
 
-
 /**CLOCK SYNC/HEART BEAT*/
 #define CLOCK_SYNCH false
 
@@ -18,7 +17,7 @@
 #define SCHEDULER true
 
 /**NBIOT ONLY- SEND SCHEDULER */
-#define SEND_SCHEDULER false
+#define SEND_SCHEDULER true
 
 #define INTERRUPT_DELAY 60
 #define MAX_SEND_RETRIES 3
@@ -44,19 +43,19 @@
 #endif
 
 #if(!SCHEDULER)
-    #define SCHEDULER_SIZE 8 /*SCHEDULER SIZE  */ //TODO: CHANGE THE NAME TO INTERVALS
+    #define SCHEDULER_SIZE 4 /*SCHEDULER SIZE  */ //TODO: CHANGE THE NAME TO INTERVALS
     extern float scheduler[]; //CHANGE TO INTERVALS
 #endif
 
 
-//#if(SEND_SCHEDULER)
+#if(SEND_SCHEDULER)
     #define MAX_BUFFER_SENDING_TIMES 10
     #define SEND_SCHEDULER_SIZE 2
     extern float nbiot_send_scheduler[];
-//#endif
+#endif
 
-//#if (CLOCK_SYNCH)
+#if (CLOCK_SYNCH)
     #define CLOCK_SYNCH_TIME 86400 //0-86400 time in seconds 
-//#endif
+#endif
 
 
